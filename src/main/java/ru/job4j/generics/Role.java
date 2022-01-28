@@ -1,9 +1,9 @@
 package ru.job4j.generics;
 
-public class UserRole extends Base {
+public class Role extends Base {
     private final String role;
 
-    public UserRole(String id, String role) {
+    public Role(String id, String role) {
         super(id);
         this.role = role;
     }
