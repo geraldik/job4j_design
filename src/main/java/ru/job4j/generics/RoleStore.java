@@ -1,16 +1,16 @@
 package ru.job4j.generics;
 
-public class RoleStore implements Store<UserRole> {
+public class RoleStore implements Store<Role> {
 
-    private final Store<UserRole> store = new MemStore<>();
+    private final Store<Role> store = new MemStore<>();
 
     @Override
-    public void add(UserRole model) {
+    public void add(Role model) {
         store.add(model);
     }
 
     @Override
-    public boolean replace(String id, UserRole model) {
+    public boolean replace(String id, Role model) {
         return store.replace(id, model);
     }
 
@@ -20,7 +20,7 @@ public class RoleStore implements Store<UserRole> {
     }
 
     @Override
-    public UserRole findById(String id) {
+    public Role findById(String id) {
         return store.findById(id);
     }
 }
