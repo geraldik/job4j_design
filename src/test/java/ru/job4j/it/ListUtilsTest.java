@@ -1,6 +1,5 @@
 package ru.job4j.it;
 
-import org.hamcrest.core.Is;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -41,14 +40,14 @@ public class ListUtilsTest {
     @Test
     public void whenRemoveIfEven() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
-        ListUtils.removeIf(input, integer -> integer %2 == 0);
+        ListUtils.removeIf(input, integer -> integer % 2 == 0);
         assertThat(input, is(Arrays.asList(1, 3)));
     }
 
     @Test
     public void whenReplaceIfNotEven() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4));
-        ListUtils.replaceIf(input, integer -> integer %2 != 0, 8);
+        ListUtils.replaceIf(input, integer -> integer % 2 != 0, 8);
         assertThat(input, is(Arrays.asList(0, 8, 2, 8, 4)));
     }
 
@@ -56,8 +55,7 @@ public class ListUtilsTest {
     public void whenRemoveAll() {
         List<Integer> input = new ArrayList<>(Arrays.asList(0, 1, 2, 3));
         List<Integer> elements = new ArrayList<>(Arrays.asList(1, 2));
-        ListUtils.removeAll(input,elements);
+        ListUtils.removeAll(input, elements);
         assertThat(input, is(Arrays.asList(0, 3)));
     }
-
 }
