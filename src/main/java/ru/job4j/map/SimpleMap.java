@@ -61,7 +61,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        for (int i = 0; i <capacity; i++) {
+        for (int i = 0; i < capacity; i++) {
             if (table[i] != null && table[i].key == key) {
                 table[i] = null;
                 modCount++;
