@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -19,7 +18,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count == capacity * LOAD_FACTOR) {
+        if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
         boolean rsl = false;
@@ -43,17 +42,22 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         capacity *= 2;
-        Arrays.copyOf(table, capacity);
+        MapEntry<K, V>[] newTable = new MapEntry[capacity];
+        for (MapEntry<K, V> mapEntry : table) {
+            if (mapEntry != null) {
+                int index = indexFor(hash(mapEntry.key.hashCode()));
+                newTable[index] = mapEntry;
+            }
+        }
+        table = newTable;
     }
 
     @Override
     public V get(K key) {
         V rsl = null;
-        for (MapEntry mapEntry: table) {
-            if (mapEntry != null && mapEntry.key == key) {
-                rsl = (V) mapEntry.value;
-                break;
-            }
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] != null && table[index].key == key) {
+            rsl = table[index].value;
         }
         return rsl;
     }
@@ -61,15 +65,13 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean rsl = false;
-        for (int i = 0; i < capacity; i++) {
-            if (table[i] != null && table[i].key == key) {
-                table[i] = null;
+        int index = indexFor(hash(key.hashCode()));
+            if (table[index] != null && table[index].key == key) {
+                table[index] = null;
                 modCount++;
                 count--;
                 rsl = true;
-                break;
             }
-        }
         return rsl;
     }
 
@@ -84,7 +86,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return point < count;
+                return point < capacity;
             }
 
             @Override
