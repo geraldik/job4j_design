@@ -24,7 +24,8 @@ public class Config {
                     .forEach(s -> {
                         String separator = "=";
                         if (!s.contains(separator)
-                                || s.startsWith(separator)) {
+                                || s.startsWith(separator)
+                                || s.endsWith(separator)) {
                             throw new IllegalArgumentException("Неверный шаблон");
                         }
                         values.put(s.split(separator)[0], s.split(separator)[1]);
