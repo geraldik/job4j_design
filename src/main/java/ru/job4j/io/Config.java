@@ -51,11 +51,7 @@ public class Config {
 
     public static void main(String[] args) {
         Config config = new Config("app.properties");
-//        System.out.println(config);
-        config.load();
-        System.out.println(config.values.keySet());
-        System.out.println(config.values.values());
-
+        System.out.println(config);
     }
 
 }
