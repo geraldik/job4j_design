@@ -10,7 +10,10 @@ public class Search {
     private static void inputValidating(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Search folder is null or file extension is not set. Usage java -jar Search.jar"
-                    + " SEARCH_FOLDER SEARCH_FILE_EXTENSION.");
+                    + " SEARCH_FOLDER .SEARCH_FILE_EXTENSION.");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("There is no dot before file extension.");
         }
         if (!Files.exists(Paths.get(args[0]))
                 || !Files.isDirectory(Paths.get(args[0]))) {
@@ -21,7 +24,7 @@ public class Search {
     public static void main(String[] args) throws IOException {
         inputValidating(args);
         Path start = Paths.get(args[0]);
-        search(start, p -> p.toFile().getName().endsWith("." + args[1])).forEach(System.out::println);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
