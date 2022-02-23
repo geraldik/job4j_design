@@ -6,10 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     private final Map<FileProperty, List<Path>> fileMap = new HashMap<>();
@@ -28,7 +26,13 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         return FileVisitResult.CONTINUE;
     }
 
-    public Map<FileProperty, List<Path>> getFileMap() {
-        return fileMap;
+    public static List<Path> getFilePath() throws IOException {
+        DuplicatesVisitor duplicatesVisitor = new DuplicatesVisitor();
+        Files.walkFileTree(Path.of("./"), duplicatesVisitor);
+        return duplicatesVisitor.fileMap.values()
+                .stream()
+                .filter(list -> list.size() > 1)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 }
