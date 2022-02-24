@@ -24,10 +24,8 @@ public class ConsoleChat {
 
     public void run() {
         List<String> log = new ArrayList<>();
-        try {
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(System.in));
-            {
+        try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(System.in))) {
                 boolean flag = true;
                 boolean mute = false;
                 System.out.println("Начните чат:");
@@ -53,7 +51,6 @@ public class ConsoleChat {
                             break;
                     }
                 }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
