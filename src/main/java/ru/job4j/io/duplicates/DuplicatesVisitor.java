@@ -26,9 +26,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         return FileVisitResult.CONTINUE;
     }
 
-    public static List<Path> getFilePath() throws IOException {
-        DuplicatesVisitor duplicatesVisitor = new DuplicatesVisitor();
-        Files.walkFileTree(Path.of("./"), duplicatesVisitor);
+    public List<Path> getFilePath(DuplicatesVisitor duplicatesVisitor) {
         return duplicatesVisitor.fileMap.values()
                 .stream()
                 .filter(list -> list.size() > 1)
