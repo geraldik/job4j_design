@@ -41,7 +41,6 @@ public class ConsoleChat {
                             break;
                         case CONTINUE:
                             mute = false;
-                            break;
                         default:
                             if (!mute) {
                                 String answer = randomString(readPhrases());
