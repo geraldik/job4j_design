@@ -2,17 +2,29 @@ package ru.job4j.io;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class Search {
+    private static void inputValidating(String[] args) {
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Search folder is null or file extension is not set. Usage java -jar Search.jar"
+                    + " SEARCH_FOLDER .SEARCH_FILE_EXTENSION.");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("There is no dot before file extension.");
+        }
+        if (!Files.exists(Paths.get(args[0]))
+                || !Files.isDirectory(Paths.get(args[0]))) {
+            throw new IllegalArgumentException("Path does not exist or does not point to a directory.");
+        }
+    }
+
     public static void main(String[] args) throws IOException {
-        Path start = Paths.get(".");
-        search(start, p -> p.toFile().getName().endsWith(".js")).forEach(System.out::println);
+        inputValidating(args);
+        Path start = Paths.get(args[0]);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
