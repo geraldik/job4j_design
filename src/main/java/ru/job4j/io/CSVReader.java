@@ -20,8 +20,7 @@ public class CSVReader {
             for (int i = 0, j = 0; i < indexes.length; i++) {
                 filterName[j++] = columnName[indexes[i]];
             }
-            out.print(String.join(delimiter, filterName));
-            out.println();
+            out.println(String.join(delimiter, filterName));
             while ((line = read.readLine()) != null) {
                 var scanner = new Scanner(line)
                         .useDelimiter(argsName.get("delimiter"));
