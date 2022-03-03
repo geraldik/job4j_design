@@ -24,11 +24,7 @@ public class EchoServer {
                                     out.flush();
                                     flag = false;
                                 }
-                                case "/?msg=Exit" -> {
-                                    out.write("Exit.\r\n\r\n".getBytes());
-                                    server.close();
-//                                    flag = false;
-                                }
+                                case "/?msg=Exit" -> server.close();
                                 default -> {
                                     out.write("What.\r\n\r\n".getBytes());
                                     out.flush();
