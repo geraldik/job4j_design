@@ -10,6 +10,7 @@ public class UsageLog4j {
     public static void main(String[] args) {
         String name = "Vlad";
         byte bloodGroup = 1;
+        char rhFactor = 'm';
         boolean car = true;
         short size = 48;
         int age = 35;
@@ -17,9 +18,10 @@ public class UsageLog4j {
         float height = 178.5F;
         double weight = 73.3;
 
-        LOG.debug("User info name : {}, bloodGroup :"
+
+        LOG.debug("User info name : {}, bloodGroup : {}, rhFactor : "
                         + " {}, car : {}, size : {}, age : {}, salary : "
                         + "{}, height : {}, weight : {} ",
-                name, bloodGroup, car, size, age, salary, height, weight);
+                name, bloodGroup, rhFactor, car, size, age, salary, height, weight);
     }
 }
