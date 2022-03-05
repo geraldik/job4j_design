@@ -20,13 +20,11 @@ public class EchoServer {
                             String message = str.split(" ")[1];
                             if ("/?msg=Hello".equals(message)) {
                                 out.write("Hello.\r\n\r\n".getBytes());
-                                out.flush();
                                 flag = false;
                             } else if ("/?msg=Exit".equals(message)) {
                                 server.close();
                             } else {
                                 out.write("What.\r\n\r\n".getBytes());
-                                out.flush();
                                 flag = false;
                             }
                         }
