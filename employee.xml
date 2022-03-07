@@ -1,0 +1,9 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<employee sex="false" age="30" name="Bob">
+    <adres city="Voronezh" street="Kirova" hause="10"/>
+    <skills>
+        <skill>Java</skill>
+        <skill>C</skill>
+        <skill>C#</skill>
+    </skills>
+</employee>
