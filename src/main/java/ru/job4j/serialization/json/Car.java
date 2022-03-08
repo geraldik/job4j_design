@@ -27,4 +27,28 @@ public class Car {
                 + ", comfort=" + Arrays.toString(comfort)
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isFourWheelDrive() {
+        return fourWheelDrive;
+    }
+
+    public void setFourWheelDrive(boolean fourWheelDrive) {
+        this.fourWheelDrive = fourWheelDrive;
+    }
+
+    public int getEngine() {
+        return engine;
+    }
+
+    public void setEngine(int engine) {
+        this.engine = engine;
+    }
 }
