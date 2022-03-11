@@ -51,4 +51,12 @@ public class Car {
     public void setEngine(int engine) {
         this.engine = engine;
     }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public String[] getComfort() {
+        return comfort;
+    }
 }
