@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
@@ -25,6 +26,12 @@ public class SearchFiles extends SimpleFileVisitor<Path> {
         }
         return CONTINUE;
     }
+
+    @Override
+    public FileVisitResult visitFileFailed(Path file, IOException exc) {
+        return CONTINUE;
+    }
+
     public List<Path> getPaths() {
         return paths;
     }

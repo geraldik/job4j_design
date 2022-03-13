@@ -11,6 +11,10 @@ public class ArgsName {
         return values.get(key);
     }
 
+    public int size() {
+        return values.size();
+    }
+
     private void parse(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("Missing arguments.");
