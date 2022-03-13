@@ -7,27 +7,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class Find {
-    private ArgsName jvm;
+    private final ArgsName jvm;
 
     public Find(String[] args) {
         this.jvm = ArgsName.of(args);
     }
 
     private Predicate<Path> searchCriteria(String name, String type) {
-        Predicate<Path> condition = null;
-        if ("mask".equals(type)) {
-            condition = p -> p.toFile().getName().endsWith(name.substring(1));
-        } else if ("name".equals(type)) {
-            condition = p -> p.toFile().getName().equals(name);
-        } else if ("regex".equals(type)) {
-            condition = p -> p.toFile().getName().matches(name);
-        }
-        return condition;
+        String finalName = "mask".equals(type) ? createRegex(name) : name;
+        return p -> p.toFile().getName().matches(finalName);
     }
 
     public void searching() {
@@ -39,6 +31,7 @@ public class Find {
             e.printStackTrace();
         }
     }
+
     private void inputValidating() {
         if (jvm.size() != 4) {
             throw new IllegalArgumentException("Wrong amount of arguments. Use java -jar find.jar"
@@ -54,6 +47,23 @@ public class Find {
         if (!Files.isDirectory(Path.of(jvm.get("d")))) {
             throw new IllegalArgumentException("Wrong path to searching directory.");
         }
+    }
+
+    private String createRegex(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '*') {
+                sb.append(".+");
+            } else if (ch == '?') {
+                sb.append(".");
+            } else if (ch == '.') {
+                sb.append("\\.");
+            } else {
+                sb.append(ch);
+            }
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
