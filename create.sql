@@ -32,3 +32,12 @@ create table attachs (
 	name text,
     item_id int references items(id)
 );
+create table rules (
+    id serial primary key,
+	name text
+);
+create role_rules (
+    id serial primary key,
+	role_id int references roles(id),
+    rule_id int references rules(id)
+);

@@ -6,3 +6,9 @@ insert into items (name, user_id, category_id, state_id) values ('Another one bu
 insert into comments (name, item_id) values ('Some comment', 1);
 insert into comments (name, item_id) values ('Another one comment', 1);
 insert into attachs (name, item_id) values ('Explanation.txt', 1);
+insert into rules (name) values ('CREATE');
+insert into rules (name) values ('UPDATE');
+insert into rules (name) values ('DELETE');
+insert into role_rules (role_id, rule_id) values (1, 1);
+insert into role_rules (role_id, rule_id) values (1, 2);
+insert into role_rules (role_id, rule_id) values (1, 3);
