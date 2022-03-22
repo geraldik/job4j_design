@@ -1,7 +1,16 @@
-select*from product where type_id=1;
+select * from product p
+join type t
+on t.id = p.type_id
+where t.name ='СЫР';
+
 select*from product where lower(name) like '%мороженое%';
+
 select*from product where current_date > expired_date;
-select * from product order by price desc limit 1;
+
+select p.name, p.price
+from product as p
+where p.price = (select max(p.price) from product p);
+
 select t.name, count(p)
 from product as p
 join type as t
