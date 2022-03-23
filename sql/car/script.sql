@@ -34,11 +34,11 @@ values ('Hyundai Solaris', 2, 1, 1), ('Skoda Octavia', 3, 1, 3), ('Toyota Camry'
 ('BMW X5', 1, 3, 4), ('KIA Rio', 4, 1, 5);
 
 Select * from car c
-join car_body cb
+left join car_body cb
 on c.car_body_id= cb.id
-join engine e
+left join engine e
 on c.engine_id= e.id
-join gearbox g
+left join gearbox g
 on c.gearbox_id= g.id;
 
 select * from car_body cb 
