@@ -1,9 +1,7 @@
 package ru.job4j.jdbc;
 
-import ru.job4j.io.Config;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
