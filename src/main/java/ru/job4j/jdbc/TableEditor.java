@@ -106,10 +106,10 @@ public class TableEditor implements AutoCloseable {
     }
 
     private Connection getConnection() throws Exception {
-        Class.forName(properties.getProperty("hibernate.connection.driver_class"));
-        String url = properties.getProperty("hibernate.connection.url");
-        String login = properties.getProperty("hibernate.connection.username");
-        String password = properties.getProperty("hibernate.connection.password");
+        Class.forName(properties.getProperty("jdbc.driver"));
+        String url = properties.getProperty("jdbc.url");
+        String login = properties.getProperty("jdbc.username");
+        String password = properties.getProperty("jdbc.password");
         return DriverManager.getConnection(url, login, password);
     }
 
