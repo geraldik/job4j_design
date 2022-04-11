@@ -33,19 +33,15 @@ select*from person p
 join company c on p.company_id=c.id
 where p.company_id!=5
 
-SELECT cp.name, MAX(cp.person_count)
-FROM (SELECT c.name, COUNT(p.company_id) AS person_count 
+SELECT c.name, COUNT(p.company_id)
 	  FROM company c
- 	  JOIN person p 
-	  ojphb[wON p.company_id=c.id
-      GROUP BY c.name) cp 
-GROUP BY cp.name, cp.person_count
-HAVING cp.person_count=(SELECT MAX(cp.person_count)
-						FROM (SELECT c.name, COUNT(p.company_id) AS person_count 
-					    	  FROM company c
- 	      					  JOIN person p 
-						 	  ON p.company_id=c.id
-      						  GROUP BY c.name) cp)
+ 	  JOIN person p
+	  ON p.company_id=c.id
+      GROUP BY c.name
+	  HAVING COUNT(p.company_id) = (SELECT company_id FROM person p
+				  GROUP BY company_id
+				  ORDER BY company_id DESC
+				  LIMIT 1)
 
 
  
