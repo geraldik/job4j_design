@@ -38,7 +38,7 @@ SELECT c.name, COUNT(p.company_id)
  	  JOIN person p
 	  ON p.company_id=c.id
       GROUP BY c.name
-	  HAVING COUNT(p.company_id) = (SELECT company_id FROM person p
+	  HAVING COUNT(p.company_id) = (SELECT COUNT(*) FROM person p
 				  GROUP BY company_id
 				  ORDER BY company_id DESC
 				  LIMIT 1)
