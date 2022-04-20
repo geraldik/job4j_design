@@ -1,6 +1,8 @@
 package ru.job4j.cache;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class DirFileCache extends AbstractCache<String, String> {
 
@@ -10,18 +12,23 @@ public class DirFileCache extends AbstractCache<String, String> {
         this.cachingDir = cachingDir;
     }
 
+    public static boolean validatePath(String path) {
+        return (Files.exists(Path.of(path))
+            && Files.isDirectory(Path.of(path)));
+    }
+
     @Override
     protected String load(String key) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try (BufferedReader read = new BufferedReader(new FileReader(cachingDir + File.separator + key))) {
-            String line;
-            while ((line = read.readLine()) != null) {
-                stringBuilder.append(line);
-                stringBuilder.append(System.lineSeparator());
-            }
+        String content = null;
+        try {
+            content = Files.readString(Path.of(cachingDir, key));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("There is now selected file.");
         }
-        return stringBuilder.toString();
+        return content;
+    }
+
+    public String getCachingDir() {
+        return cachingDir;
     }
 }
