@@ -2,6 +2,7 @@ package ru.job4j.design.srp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static ru.job4j.design.srp.ReportForAccounting.BILLING_PERIOD;
 
 import org.junit.Test;
 
@@ -71,7 +72,7 @@ public class ReportEngineTest {
                 .append(worker.getName()).append(";")
                 .append(worker.getHired()).append(";")
                 .append(worker.getFired()).append(";")
-                .append(worker.getSalary() * 12).append(";")
+                .append(worker.getSalary() * BILLING_PERIOD).append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
     }
