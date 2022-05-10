@@ -132,10 +132,10 @@ public class ReportEngineTest {
         Employee worker = new Employee("Ivan", now, now, 100);
         store.add(worker);
         Report engine = new ReportJSON(store);
-        var expect = String.format("[{\"name\":\"%s\",\"hired\":{\"year\":%d,\"month" +
-                "\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d,\"second\":%d},\"fired\":" +
-                "{\"year\":%d,\"month\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d" +
-                ",\"second\":%d},\"salary\":%s}]",
+        var expect = String.format("[{\"name\":\"%s\",\"hired\":{\"year\":%d,\"month"
+                        + "\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d,\"second\":%d},\"fired\":"
+                        + "{\"year\":%d,\"month\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d"
+                        + ",\"second\":%d},\"salary\":%s}]",
                 worker.getName(), worker.getHired().get(Calendar.YEAR), worker.getHired().get(Calendar.MONTH),
                 worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR),
                 worker.getHired().get(Calendar.MINUTE), worker.getHired().get(Calendar.SECOND),
