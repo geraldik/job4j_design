@@ -6,6 +6,7 @@ import static ru.job4j.design.srp.ReportForAccounting.BILLING_PERIOD;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ReportEngineTest {
@@ -78,7 +79,7 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenGeneratedForHRz() {
+    public void whenGeneratedForHR() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker1 = new Employee("Ivan", 100);
@@ -101,5 +102,46 @@ public class ReportEngineTest {
                 .append(worker1.getSalary()).append(";")
                 .append(System.lineSeparator());
         assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenGeneratedXML() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        formatter.format(now.getTime());
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        Report engine = new ReportXML(store);
+        StringBuilder expect = new StringBuilder()
+                .append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>").append("\n")
+                .append("<employees>").append("\n")
+                .append("    ").append("<employee name=\"").append(worker.getName()).append("\" salary=\"")
+                .append(worker.getSalary()).append("\">").append("\n")
+                .append("        ").append("<hired>").append(formatter.format(worker.getHired().getTime())).append("</hired>").append("\n")
+                .append("        ").append("<fired>").append(formatter.format(worker.getFired().getTime())).append("</fired>").append("\n")
+                .append("    ").append("</employee>").append("\n")
+                .append("</employees>").append("\n");
+        assertThat(engine.generate(em -> true), is(expect.toString()));
+    }
+
+    @Test
+    public void whenGeneratedJSON() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        Report engine = new ReportJSON(store);
+        var expect = String.format("[{\"name\":\"%s\",\"hired\":{\"year\":%d,\"month" +
+                "\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d,\"second\":%d},\"fired\":" +
+                "{\"year\":%d,\"month\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d" +
+                ",\"second\":%d},\"salary\":%s}]",
+                worker.getName(), worker.getHired().get(Calendar.YEAR), worker.getHired().get(Calendar.MONTH),
+                worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR),
+                worker.getHired().get(Calendar.MINUTE), worker.getHired().get(Calendar.SECOND),
+                worker.getHired().get(Calendar.YEAR), worker.getHired().get(Calendar.MONTH),
+                worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR),
+                worker.getHired().get(Calendar.MINUTE), worker.getHired().get(Calendar.SECOND), worker.getSalary());
+        assertThat(engine.generate(em -> true), is(expect));
     }
 }
