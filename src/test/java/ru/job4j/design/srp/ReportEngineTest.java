@@ -137,10 +137,10 @@ public class ReportEngineTest {
                         + "{\"year\":%d,\"month\":%d,\"dayOfMonth\":%d,\"hourOfDay\":%d,\"minute\":%d"
                         + ",\"second\":%d},\"salary\":%s}]",
                 worker.getName(), worker.getHired().get(Calendar.YEAR), worker.getHired().get(Calendar.MONTH),
-                worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR),
+                worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR_OF_DAY),
                 worker.getHired().get(Calendar.MINUTE), worker.getHired().get(Calendar.SECOND),
                 worker.getHired().get(Calendar.YEAR), worker.getHired().get(Calendar.MONTH),
-                worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR),
+                worker.getHired().get(Calendar.DATE), worker.getHired().get(Calendar.HOUR_OF_DAY),
                 worker.getHired().get(Calendar.MINUTE), worker.getHired().get(Calendar.SECOND), worker.getSalary());
         assertThat(engine.generate(em -> true), is(expect));
     }
