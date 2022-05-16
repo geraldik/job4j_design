@@ -7,18 +7,22 @@ public class Warehouse implements Storage {
 
     private List<Food> foodList = new ArrayList<>();
 
-    public void store(Food food) {
-        foodList.add(food);
+    @Override
+    public boolean store(Food food, double lifeBalance) {
+        boolean rsl = false;
+        if(sort(lifeBalance)) {
+            foodList.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
 
     public List<Food> getFoodList() {
         return foodList;
     }
 
-    @Override
-    public void sort(Food food, double lifeBalance) {
-        if (lifeBalance > 75) {
-            store(food);
-        }
+
+    public boolean sort(double lifeBalance) {
+        return lifeBalance > 75;
     }
 }

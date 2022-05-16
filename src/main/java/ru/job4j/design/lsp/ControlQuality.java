@@ -1,6 +1,5 @@
 package ru.job4j.design.lsp;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class ControlQuality {
@@ -16,7 +15,7 @@ public class ControlQuality {
             throw new IllegalArgumentException("Input product cannot be null");
         }
         for (Storage storage : stores) {
-            storage.sort(food, Distributor.lifeBalance(food));
+            storage.store(food, Distributor.lifeBalance(food));
         }
     }
 }

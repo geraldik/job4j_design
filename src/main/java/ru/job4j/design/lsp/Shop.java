@@ -7,21 +7,25 @@ public class Shop implements Storage {
 
     private List<Food> foodList = new ArrayList<>();
 
-    public void store(Food food) {
-        foodList.add(food);
+    @Override
+    public boolean store(Food food, double lifeBalance) {
+        boolean rsl = false;
+        if (sort(lifeBalance)) {
+            foodList.add(food);
+            rsl = true;
+            if (lifeBalance < 25 && lifeBalance >= 0) {
+                food.setPrice(food.getPrice() * ((double) food.getDiscount() / 100));
+            }
+        }
+
+        return rsl;
     }
 
     public List<Food> getFoodList() {
-        return foodList;
+        return new ArrayList<>(foodList);
     }
 
-    @Override
-    public void sort(Food food, double lifeBalance) {
-        if (lifeBalance >= 25 && lifeBalance <= 75) {
-            store(food);
-        } else if (lifeBalance < 25 && lifeBalance >= 0) {
-            store(food);
-            food.setPrice(food.getPrice() * ((double) food.getDiscount() / 100));
-        }
+    public boolean sort(double lifeBalance) {
+        return lifeBalance >= 0 && lifeBalance <= 75;
     }
 }

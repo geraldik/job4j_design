@@ -7,18 +7,20 @@ public class Trash implements Storage {
 
     private List<Food> foodList = new ArrayList<>();
 
-    public void store(Food food) {
-        foodList.add(food);
+    public boolean store(Food food, double lifeBalance) {
+        boolean rsl = false;
+        if (sort(lifeBalance)) {
+            foodList.add(food);
+            rsl = true;
+        }
+        return rsl;
     }
 
-    @Override
-    public void sort(Food food, double lifeBalance) {
-        if (lifeBalance <= 0) {
-            store(food);
-        }
+    public boolean sort(double lifeBalance) {
+        return lifeBalance < 0;
     }
 
     public List<Food> getFoodList() {
-        return foodList;
+        return new ArrayList<>(foodList);
     }
 }

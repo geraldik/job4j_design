@@ -64,4 +64,23 @@ public class ControlQualityTest {
         controlQuality.control(expected);
         assertThat(expected, is(trash.getFoodList().get(0)));
     }
+
+    @Test
+    public void whenAddThreeFoodThanGoToTrashWarehouseShop() {
+        Food expected1 = new Milk("Sarafanovo", LocalDate.now().minusDays(1),
+                LocalDate.now().minusDays(10), 100, 50);
+        Food expected2 = new Milk("M", LocalDate.now().plusDays(10),
+                LocalDate.now().minusDays(2), 100, 50);
+        Food expected3 = new Bread("Borodinsky", LocalDate.now(),
+                LocalDate.now().minusDays(5), 100, 50);
+        controlQuality.control(expected1);
+        controlQuality.control(expected2);
+        controlQuality.control(expected3);
+        assertThat(1, is(trash.getFoodList().size()));
+        assertThat(1, is(warehouse.getFoodList().size()));
+        assertThat(1, is(shop.getFoodList().size()));
+        assertThat(expected1, is(trash.getFoodList().get(0)));
+        assertThat(expected2, is(warehouse.getFoodList().get(0)));
+        assertThat(expected3, is(shop.getFoodList().get(0)));
+    }
 }
