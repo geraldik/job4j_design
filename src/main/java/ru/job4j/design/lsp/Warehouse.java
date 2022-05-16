@@ -10,7 +10,7 @@ public class Warehouse implements Storage {
     @Override
     public boolean store(Food food, double lifeBalance) {
         boolean rsl = false;
-        if(sort(lifeBalance)) {
+        if (sort(lifeBalance)) {
             foodList.add(food);
             rsl = true;
         }
