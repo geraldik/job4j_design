@@ -16,6 +16,7 @@ public class Trash implements Storage {
         return rsl;
     }
 
+    @Override
     public boolean sort(double lifeBalance) {
         return lifeBalance < 0;
     }

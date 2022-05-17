@@ -15,7 +15,11 @@ public class ControlQuality {
             throw new IllegalArgumentException("Input product cannot be null");
         }
         for (Storage storage : stores) {
-            storage.store(food, Distributor.lifeBalance(food));
+           if (storage.sort(Distributor.lifeBalance(food))) {
+                storage.store(food, Distributor.lifeBalance(food));
+                break;
+            }
+
         }
     }
 }

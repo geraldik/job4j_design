@@ -12,15 +12,15 @@ import static org.hamcrest.Matchers.is;
 
 public class ControlQualityTest {
 
-    Shop shop;
+    private Shop shop;
 
-    Trash trash;
+    private Trash trash;
 
-    Warehouse warehouse;
+    private Warehouse warehouse;
 
-    List<Storage> stores;
+    private List<Storage> stores;
 
-    ControlQuality controlQuality;
+    private ControlQuality controlQuality;
 
     @Before
     public void date() {

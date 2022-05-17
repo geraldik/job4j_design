@@ -17,12 +17,12 @@ public class Warehouse implements Storage {
         return rsl;
     }
 
-    public List<Food> getFoodList() {
-        return foodList;
-    }
-
-
+    @Override
     public boolean sort(double lifeBalance) {
         return lifeBalance > 75;
+    }
+
+    public List<Food> getFoodList() {
+        return foodList;
     }
 }

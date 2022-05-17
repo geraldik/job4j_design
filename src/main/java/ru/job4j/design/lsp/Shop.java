@@ -21,11 +21,12 @@ public class Shop implements Storage {
         return rsl;
     }
 
-    public List<Food> getFoodList() {
-        return new ArrayList<>(foodList);
-    }
-
+    @Override
     public boolean sort(double lifeBalance) {
         return lifeBalance >= 0 && lifeBalance <= 75;
+    }
+
+    public List<Food> getFoodList() {
+        return new ArrayList<>(foodList);
     }
 }
