@@ -10,16 +10,32 @@ public class ControlParking implements Parking {
 
     private int passengerPlace;
     private int truckPlace;
-    List<Car> carList = new ArrayList<>();
+    private final List<Car> carList;
 
     public ControlParking(int passengerPlace, int truckPlace) {
         this.passengerPlace = passengerPlace;
         this.truckPlace = truckPlace;
+        carList = new ArrayList<>(passengerPlace + truckPlace);
     }
 
     @Override
     public boolean park(Car car) {
-        return false;
+        boolean rsl = false;
+        int size = car.carSize();
+        if (size == 1) {
+            if (passengerPlace != 0) {
+                passengerPlace -= size;
+                rsl = true;
+            }
+        } else if (truckPlace != 0) {
+            truckPlace--;
+            rsl = true;
+
+        } else if (passengerPlace >= size) {
+            passengerPlace -= size;
+            rsl = true;
+        }
+        return rsl;
     }
 
     public List<Car> getCarList() {

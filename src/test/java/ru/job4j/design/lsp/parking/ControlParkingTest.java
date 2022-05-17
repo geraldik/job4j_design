@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class ControlParkingTest {
 
-    @Test @Ignore
+    @Test
     public void whenTwoPassengerAndOneTruckPlacesThanTwoTrucks() {
         var parking = new ControlParking(2, 1);
         var truck = new Truck(2);
@@ -16,7 +16,7 @@ public class ControlParkingTest {
         assertFalse(parking.park(truck));
     }
 
-    @Test @Ignore
+    @Test
     public void whenTwoPassengerAndOneTruckPlacesThanOneCarAndTwoTrucks() {
         var parking = new ControlParking(2, 1);
         var car = new PassengerCar();
@@ -28,7 +28,7 @@ public class ControlParkingTest {
         assertFalse(parking.park(car));
     }
 
-    @Test @Ignore
+    @Test
     public void whenTwoPassengerAndNoTruckPlacesThanOneTruckAndNoCar() {
         var parking = new ControlParking(2, 0);
         var car = new PassengerCar();
@@ -38,7 +38,7 @@ public class ControlParkingTest {
         assertFalse(parking.park(truck));
     }
 
-    @Test @Ignore
+    @Test
     public void whenNoPassengerAndOneTruckPlacesThanNoCar() {
         var parking = new ControlParking(0, 1);
         var car = new PassengerCar();
