@@ -22,8 +22,8 @@ public class ControlParking implements Parking {
     public boolean park(Car car) {
         boolean rsl = false;
         int size = car.carSize();
-        if (size == 1) {
-            if (passengerPlace != 0) {
+        if (size == PassengerCar.SIZE) {
+            if (passengerPlace >= PassengerCar.SIZE) {
                 passengerPlace -= size;
                 rsl = true;
             }
@@ -34,6 +34,9 @@ public class ControlParking implements Parking {
         } else if (passengerPlace >= size) {
             passengerPlace -= size;
             rsl = true;
+        }
+        if (rsl) {
+            carList.add(car);
         }
         return rsl;
     }
