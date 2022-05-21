@@ -9,28 +9,22 @@ public class SimpleMenu implements Menu {
     @Override
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         var rsl = false;
-        if (findItem(childName).isEmpty()) {
-            var menuItem = new SimpleMenuItem(childName, actionDelegate);
-            if (Objects.equals(Menu.ROOT, parentName)) {
-                rsl = rootElements.add(menuItem);
-            } else {
-                Optional<ItemInfo> itemInfo = findItem(parentName);
-                if (itemInfo.isPresent()) {
-                    rsl = itemInfo.get().menuItem.getChildren().add(menuItem);
-                }
-            }
+        var menuItem = new SimpleMenuItem(childName, actionDelegate);
+        if (findItem(childName).isEmpty() && Objects.equals(parentName, Menu.ROOT)) {
+            rsl = rootElements.add(menuItem);
+        } else if (!Objects.equals(parentName, Menu.ROOT)) {
+            Optional<ItemInfo> itemInfo = findItem(parentName);
+            rsl = itemInfo.isPresent()
+                    && itemInfo.get().menuItem.getChildren().add(menuItem);
         }
+
         return rsl;
     }
 
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
-        Optional<MenuItemInfo> rsl = Optional.empty();
-        if (findItem(itemName).isPresent()) {
-            rsl = Optional.of(new MenuItemInfo(findItem(itemName).get().menuItem,
-                    findItem(itemName).get().number));
-        }
-        return rsl;
+        return findItem(itemName).map(x -> new MenuItemInfo(findItem(itemName).get().menuItem,
+                findItem(itemName).get().number));
     }
 
     @Override
@@ -120,7 +114,7 @@ public class SimpleMenu implements Menu {
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
             int currentNumber = children.size();
-            for (var i = children.listIterator(children.size()); i.hasPrevious();) {
+            for (var i = children.listIterator(children.size()); i.hasPrevious(); ) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }
