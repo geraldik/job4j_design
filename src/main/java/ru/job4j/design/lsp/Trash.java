@@ -24,4 +24,9 @@ public class Trash implements Storage {
     public List<Food> getFoodList() {
         return new ArrayList<>(foodList);
     }
+
+    @Override
+    public void clear() {
+        foodList.clear();
+    }
 }
