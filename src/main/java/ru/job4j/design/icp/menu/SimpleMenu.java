@@ -10,9 +10,10 @@ public class SimpleMenu implements Menu {
     public boolean add(String parentName, String childName, ActionDelegate actionDelegate) {
         var rsl = false;
         var menuItem = new SimpleMenuItem(childName, actionDelegate);
-        if (findItem(childName).isEmpty() && Objects.equals(parentName, Menu.ROOT)) {
+        boolean flag = findItem(childName).isEmpty();
+        if (flag && Objects.equals(parentName, Menu.ROOT)) {
             rsl = rootElements.add(menuItem);
-        } else if (!Objects.equals(parentName, Menu.ROOT)) {
+        } else if (flag) {
             Optional<ItemInfo> itemInfo = findItem(parentName);
             rsl = itemInfo.isPresent()
                     && itemInfo.get().menuItem.getChildren().add(menuItem);

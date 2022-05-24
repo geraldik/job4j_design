@@ -82,6 +82,5 @@ public class SimpleMenuTest {
         menuPrinter.print(menu);
         assertEquals(expect, outputStreamCaptor.toString()
                 .trim());
-
     }
 }
